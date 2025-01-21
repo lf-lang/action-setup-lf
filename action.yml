@@ -5,27 +5,27 @@ branding:
   icon: activity
   color: purple
 
-inputs:
-  toolchain:
-    description: Which lfc version to install. Can be `stable` or `nightly`.
-    required: true
-  components:
-    description: Comma-separated list of components to be additionally installed. E.g. `lingo`
-    required: false
-
 runs:
   using: composite
   steps:
+    - name: Parse toolchain version
+      run: |
+        TOOLCHAIN_VERSION="${GITHUB_REF#*@}"
+        echo "version=$TOOLCHAIN_VERSION" >> $GITHUB_ENV
+      shell: bash
     - name: Install rust
       uses: dtolnay/rust-toolchain@stable
+    - name: Install java
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '17'
     - name: Install LFC
       run: |
         set -e
-        curl -Ls https://install.lf-lang.org | bash -s cli ${{ inputs.toolchain }}
+        curl -Ls https://install.lf-lang.org | bash -s cli ${{ env.version }}
       shell: bash
-
     - name: Install lingo
       run: |
         cargo install lingua-franca
-      if: contains('${{ inputs.components }}', 'lingo')
       shell: bash
