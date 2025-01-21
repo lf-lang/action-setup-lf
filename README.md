@@ -1,6 +1,9 @@
 # action-setup-lf
 A Github Action for installing the Lingua Franca toolchain, including `lfc` and `lingo`.
 
+## Requirements
+The Github Action only supports workflows running on Linux hosts. MacOS support will be added later.
+
 ## Example workflow
 
 ```yaml
@@ -13,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: erlingrj/lf-toolchain@stable
+      - uses: lf-lang/action-setup-lf@v0.1
         with:
           lfc-version: stable
           lingo-version: stable
@@ -22,7 +25,7 @@ jobs:
 
 For latest nightly release of lfc and v0.2.0 of lingo:
 ```yaml
-      - uses: erlingrj/lf-toolchain@stable
+      - uses: lf-lang/action-setup-lf@v0.1
         with:
           lfc-version: nightly
           lingo-version: 0.2.0
@@ -30,5 +33,6 @@ For latest nightly release of lfc and v0.2.0 of lingo:
 ```
 
 ## Inputs
-- `lfc-version`: Which version of LFC to install. Currently only supports `nightly` or `stable`
+- `lfc-version`: Which version of LFC to install. Currently only support for `nightly` or `stable`
 - `lingo-version`: Which version of lingo to install. Either `stable` or a version number.
+
