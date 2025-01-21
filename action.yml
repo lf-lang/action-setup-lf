@@ -1,4 +1,4 @@
-name: lf toolchain install
+name: action setup lf
 author: Erling Rennemo Jellum
 description: Install the LF toolchain
 branding:
