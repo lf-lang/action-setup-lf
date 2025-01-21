@@ -5,14 +5,19 @@ branding:
   icon: clock
   color: blue
 
+inputs:
+  lfc-version:
+    description: 'The version of the LF compiler to install. `stable` or `nightly`'
+    required: true
+    default: 'stable'
+  lingo-version:
+    description: 'The version of the lingo to install. `stable` or version number'
+    required: true
+    default: 'stable'
+
 runs:
   using: composite
   steps:
-    - name: Parse toolchain version
-      run: |
-        TOOLCHAIN_VERSION="${GITHUB_REF#*@}"
-        echo "version=$TOOLCHAIN_VERSION" >> $GITHUB_ENV
-      shell: bash
     - name: Install rust
       uses: dtolnay/rust-toolchain@stable
     - name: Install java
@@ -20,12 +25,22 @@ runs:
       with:
         distribution: 'temurin'
         java-version: '17'
-    - name: Install LFC
+    - name: Install LFC (linux)
+      if: runner.os == 'Linux'
       run: |
-        set -e
-        curl -Ls https://install.lf-lang.org | bash -s cli ${{ env.version }}
+        curl -Ls https://install.lf-lang.org | bash -s cli ${{ inputs.lfc-version }}
+      shell: bash
+    - name: Install LFC (macOS)
+      if: runner.os == 'macOS'
+      run: |
+        curl -Ls https://install.lf-lang.org | bash -s cli ${{ inputs.lfc-version }} --prefix=$HOME/.local/ 
+        echo "$HOME/.local/bin" >> "$GITHUB_PATH"
       shell: bash
     - name: Install lingo
       run: |
-        cargo install lingua-franca
+        if [ "${{ inputs.lingo-version }}" = "stable" ]; then
+          cargo install lingua-franca
+        else
+          cargo install lingua-franca --version ${{ inputs.lingo-version }}
+        fi
       shell: bash
