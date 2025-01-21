@@ -2,8 +2,8 @@ name: lf toolchain install
 author: Erling Rennemo Jellum
 description: Install the LF toolchain
 branding:
-  icon: activity
-  color: purple
+  icon: clock
+  color: blue
 
 runs:
   using: composite
