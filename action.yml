@@ -33,7 +33,13 @@ runs:
     - name: Install LFC (macOS)
       if: runner.os == 'macOS'
       run: |
-        curl -Ls https://install.lf-lang.org | bash -s cli ${{ inputs.lfc-version }} --prefix=$HOME/.local 
+        for i in {1..5}; do
+          curl -Ls https://install.lf-lang.org | bash -s cli ${{ inputs.lfc-version }} && break || sleep 10
+        done
+        if [ $? -ne 0 ]; then
+          echo "Failed to install LFC after 5 attempts"
+          exit 1
+        fi
         echo "$HOME/.local/bin" >> "$GITHUB_PATH"
       shell: bash
     - name: Install lingo
