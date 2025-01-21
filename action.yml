@@ -18,6 +18,13 @@ inputs:
 runs:
   using: composite
   steps:
+    - name: Check OS
+      run: |
+        if [ "$(uname)" = "Darwin" ]; then
+          echo "macOS is not supported."
+          exit 1
+        fi
+      shell: bash
     - name: Install rust
       uses: dtolnay/rust-toolchain@stable
     - name: Install java
@@ -25,23 +32,9 @@ runs:
       with:
         distribution: 'temurin'
         java-version: '17'
-    - name: Install LFC (linux)
-      if: runner.os == 'Linux'
+    - name: Install LFC
       run: |
         curl -Ls https://install.lf-lang.org | bash -s cli ${{ inputs.lfc-version }}
-      shell: bash
-    - name: Install LFC (macOS)
-      if: runner.os == 'macOS'
-      run: |
-        for i in {1..5}; do
-          sleep $(jot -r 1 1 15)
-          curl -Ls https://install.lf-lang.org | bash -s cli ${{ inputs.lfc-version }} --prefix=$HOME/.local && break
-        done
-        if [ $? -ne 0 ]; then
-          echo "Failed to install LFC after 5 attempts"
-          exit 1
-        fi
-        echo "$HOME/.local/bin" >> "$GITHUB_PATH"
       shell: bash
     - name: Install lingo
       run: |
