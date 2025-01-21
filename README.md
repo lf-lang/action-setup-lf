@@ -1,5 +1,5 @@
-# lf-toolchain
-A Github Action for installing the Lingua Franca toolchain
+# action-setup-lf
+A Github Action for installing the Lingua Franca toolchain, including `lfc` and `lingo`.
 
 ## Example workflow
 

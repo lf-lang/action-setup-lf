@@ -21,8 +21,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./
-        name: Run erlingrj/lf-toolchain
-        id: toolchain
+        name: Run lf-lang/action-setup-lf
         with:
           lfc-version: ${{matrix.lfc}}
           lingo-version: ${{matrix.lingo}}
