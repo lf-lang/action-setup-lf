@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  install:
+    name: LFC ${{matrix.lfc}} and lingo ${{matrix.lingo}} on ${{matrix.os == 'ubuntu' && 'Linux' || matrix.os == 'macos' && 'macOS' || '???'}}
+    runs-on: ${{matrix.os}}-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu]
+        lfc: [stable, nightly]
+        lingo: [stable, 0.2.0]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./
+        name: Run erlingrj/lf-toolchain
+        id: toolchain
+        with:
+          lfc-version: ${{matrix.lfc}}
+          lingo-version: ${{matrix.lingo}}
