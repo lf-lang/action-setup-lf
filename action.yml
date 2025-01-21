@@ -34,7 +34,7 @@ runs:
       if: runner.os == 'macOS'
       run: |
         for i in {1..5}; do
-          sleep 3
+          sleep $(shuf -i 1-15 -n 1)
           curl -Ls https://install.lf-lang.org | bash -s cli ${{ inputs.lfc-version }} --prefix=$HOME/.local && break
         done
         if [ $? -ne 0 ]; then
