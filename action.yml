@@ -33,7 +33,7 @@ runs:
     - name: Install LFC (macOS)
       if: runner.os == 'macOS'
       run: |
-        curl -Ls https://install.lf-lang.org | bash -s cli ${{ inputs.lfc-version }} --prefix=$HOME/.local/ 
+        curl -Ls https://install.lf-lang.org | bash -s cli ${{ inputs.lfc-version }} --prefix=$HOME/.local 
         echo "$HOME/.local/bin" >> "$GITHUB_PATH"
       shell: bash
     - name: Install lingo
