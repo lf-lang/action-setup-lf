@@ -1,0 +1,31 @@
+name: lf toolchain install
+author: Erling Rennemo Jellum
+description: Install the LF toolchain
+branding:
+  icon: activity
+  color: purple
+
+inputs:
+  toolchain:
+    description: Which lfc version to install. Can be `stable` or `nightly`.
+    required: true
+  components:
+    description: Comma-separated list of components to be additionally installed. E.g. `lingo`
+    required: false
+
+runs:
+  using: composite
+  steps:
+    - name: Install rust
+      uses: dtolnay/rust-toolchain@stable
+    - name: Install LFC
+      run: |
+        set -e
+        curl -Ls https://install.lf-lang.org | bash -s cli ${{ inputs.toolchain }}
+      shell: bash
+
+    - name: Install lingo
+      run: |
+        cargo install lingua-franca
+      if: contains('${{ inputs.components }}', 'lingo')
+      shell: bash
