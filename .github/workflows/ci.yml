@@ -21,7 +21,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./
-        name: Run erlingrj/lf-toolchain
+        name: Run erlingrj/lf-toolchain@v0.2
         id: toolchain
         with:
           lfc-version: ${{matrix.lfc}}
