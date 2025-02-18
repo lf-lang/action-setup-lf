@@ -2,7 +2,7 @@
 A Github Action for installing the Lingua Franca toolchain, including `lfc` and `lingo`.
 
 ## Requirements
-The Github Action only supports workflows running on Linux hosts. MacOS support will be added later.
+The Github Action only supports workflows running on Linux and macOS hosts.
 
 ## Example workflow
 
