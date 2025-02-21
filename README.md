@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: lf-lang/action-setup-lf@v0.1
+      - uses: lf-lang/action-setup-lf@v0.2
         with:
           lfc-version: stable
           lingo-version: stable
@@ -25,7 +25,7 @@ jobs:
 
 For latest nightly release of lfc and v0.2.0 of lingo:
 ```yaml
-      - uses: lf-lang/action-setup-lf@v0.1
+      - uses: lf-lang/action-setup-lf@v0.2
         with:
           lfc-version: nightly
           lingo-version: 0.2.0
