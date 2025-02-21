@@ -25,3 +25,11 @@ jobs:
         with:
           lfc-version: ${{matrix.lfc}}
           lingo-version: ${{matrix.lingo}}
+        
+      - name: Smoke test LFC
+        run: lfc --version
+        shell: bash
+      
+      - name: Smoke test lingo
+        run: lingo --version
+        shell: bash
