@@ -38,7 +38,7 @@ runs:
     - name: Install LFC (macOS)
       if: runner.os == 'macOS'
       run: |
-        bash ./tmp/installation/install.sh cli ${{ inputs.lfc-version }} --prefix=$HOME/.local && break
+        bash ./tmp/installation/install.sh cli ${{ inputs.lfc-version }} --prefix=$HOME/.local
         echo "$HOME/.local/bin" >> "$GITHUB_PATH"
       shell: bash
     - name: Install lingo
