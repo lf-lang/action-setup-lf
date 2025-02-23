@@ -30,16 +30,10 @@ runs:
       with:
         repository: 'lf-lang/installation'
         path: 'tmp/installation'
-    - name: Install LFC (linux)
-      if: runner.os == 'Linux'
-      run: |
-        bash ./tmp/installation/install.sh cli ${{ inputs.lfc-version }}
-      shell: bash
     - name: Install LFC (macOS)
       if: runner.os == 'macOS'
       run: |
-        bash ./tmp/installation/install.sh cli ${{ inputs.lfc-version }} --prefix=$HOME/.local && break
-        echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+        bash ./tmp/installation/install.sh cli ${{ inputs.lfc-version }}
       shell: bash
     - name: Install lingo
       run: |
